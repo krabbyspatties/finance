@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+{% block title %}
+Account Page
+{% endblock title %}
+{% block content %}
+
+{% include "include/messages.html" %}
+<div>
+    <ul>
+        {% for account in accounts %}
+        <li>
+            <p>{{account.account_name}} - {{account.date_created}}</p><a href="/account/transaction/{{ account.id }}" class="btn btn-primary float-end">Transact</a><a href="/account/delete/{{ account.id }}" class="btn btn-danger">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/account/create" class="btn btn-primary">Creat Account</a>
+</div>
+{% endblock content %}

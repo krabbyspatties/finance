@@ -1,0 +1,34 @@
+{% extends "layouts/base.html" %}
+{% block title %}Transactionc Page{% endblock title %}
+{% block content %}
+
+<div class="balance border border-primary">
+    <h1>WELCOME {{account.account_name}}</h1>
+    <h2>Current Balance</h2>
+    <h2>{{account.balance}}</h2>
+    <h2>Total Expense</h2>
+    <h2>{{account.total_expense}}</h2>
+    <h2>Total Deposit</h2>
+    <h2>{{account.total_deposit}}</h2>
+</div>
+<div class="history border border-secondary">
+    {% for transaction in transaction %}
+    <li>{{transaction.date_created}}{{transaction.description}}{{transaction.transaction_type}}{{transaction.amount}}</li>
+    {% endfor %}
+</div>
+<div class="create_transac border border-danger">
+    <form action="/account/save_transaction/{{account.id}}" method="post">
+        {% csrf_token %}
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount"><br><br>
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description"><br><br>
+        <select name="transaction_type" id="transaction_type" name="transaction_type">
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+        </select>
+        <button type="submit" class="btn-secondary">CONFIRM</button>
+    </form>
+    <a href="account" class="btn btn-secondary">Home</a>
+</div>
+{% endblock content %}
